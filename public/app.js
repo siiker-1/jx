@@ -1,6 +1,6 @@
 const enc = encodeURIComponent;
 const amap = name => `https://uri.amap.com/search?keyword=${enc(name)}&view=map&callnative=1`;
-const multi = (points, mode='driving') => `https://www.google.com/maps/dir/?api=1&origin=${enc(points[0])}&destination=${enc(points.at(-1))}&waypoints=${enc(points.slice(1,-1).join('|'))}&travelmode=${mode}`;
+const multi = points => { const via = points.slice(1,-1).map(enc).join(','); return `https://www.amap.com/dir?type=car&from[name]=${enc(points[0])}&to[name]=${enc(points.at(-1))}${via?`&via[name]=${via}`:''}`; };
 const bookings = [
   ['🚄','G225 · 已出票','9/12 周六 09:00—11:46','上海虹桥 → 南昌西 · 2等座 · 2人'],
   ['🏨','全季酒店（南昌八一广场武商 Mall 店）','9/12 14:00 后—9/14 12:00 前','商务大床房 · 2晚 · 南昌市东湖区省府北二路109号'],
